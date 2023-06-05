@@ -107,7 +107,7 @@ public class Shooting : MonoBehaviour
         
 
         //switch guns
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (CurrentGun == 1)
             {

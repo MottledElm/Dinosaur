@@ -19360,7 +19360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7483711441718138566}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.84, y: 2.49, z: -2}
+  m_LocalPosition: {x: 1.84, y: 2.49, z: -3.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19478,7 +19478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 8838668627604183915, guid: 1ce04917bc471e5429247018b1b954c5, type: 3}
-  BulletSpeed: 20
+  BulletSpeed: 40
   Cooldown: 1
   CooldownSpeed: 1
   ReloadCooldown: 0
@@ -19561,6 +19561,8 @@ MonoBehaviour:
   rotateSpeed: 1000
   IsSprinting: 0
   MoveSpeedMultiplier: 1
+  InteractPrompt: {fileID: 0}
+  HasInteracted: 0
   MeleeRange: 2
   MeleeType: 0
   MeleeDamage: 0
@@ -19572,6 +19574,11 @@ MonoBehaviour:
   MeleeChargeEffect: {fileID: 1293632767584066078}
   MeleeEffect: {fileID: 7555045719567214157}
   Health: 100
+  HealthPic: {fileID: 0}
+  Health1: {fileID: 0}
+  Health2: {fileID: 0}
+  Health3: {fileID: 0}
+  Health4: {fileID: 0}
   IsRoll: 0
   RollSpeed: 2
   RollDuration: 100
@@ -19585,7 +19592,7 @@ MonoBehaviour:
   ScanDelay: 0
   ScanEffect: {fileID: 7926586647888395187}
   HackType: 0
-  HackTimer: 3
+  HackTimer: 0.1
   Ticker: {fileID: 7699626840246281847, guid: 4044deba7a9449c4da0577eab9d81514, type: 3}
   CanTicker: 0
   SmokeBomb: {fileID: 2633596714431578221, guid: 06c0053a5f062154294d0b2ac367c627,
@@ -19596,6 +19603,7 @@ MonoBehaviour:
   Controller: {fileID: 6193452919787879432, guid: ca7cd2ce16c3fcc4d9e6265dae0c27c5,
     type: 3}
   Rigidbody: {fileID: 7483711442069964893}
+  TextDisplayer: {fileID: 0}
 --- !u!114 &7483711442069964895
 MonoBehaviour:
   m_ObjectHideFlags: 0

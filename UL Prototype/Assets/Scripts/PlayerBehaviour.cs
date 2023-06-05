@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float rotateSpeed = 75f;
     public bool IsSprinting = false;
     public float MoveSpeedMultiplier = 1;
+    public Image InteractPrompt;
+    public bool HasInteracted;
 
     //Melee
     public float MeleeRange = 2;
@@ -24,6 +28,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Combat
     public float Health = 100f;
+    public Image HealthPic;
+    public Sprite Health1;
+    public Sprite Health2;
+    public Sprite Health3;
+    public Sprite Health4;
 
     //Roll
     public bool IsRoll = false;
@@ -68,6 +77,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Rigidbody Rigidbody;
 
+    public TextMeshProUGUI TextDisplayer;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -81,6 +92,46 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Health > 75)
+        {
+            HealthPic.sprite = Health1;
+        }
+
+        else if (Health > 50)
+        {
+            HealthPic.sprite = Health2;
+        }
+
+        else if (Health > 25)
+        {
+            HealthPic.sprite = Health3;
+        }
+
+        else if (Health > 0)
+        {
+            HealthPic.sprite = Health4;
+        }
+
+        Collider[] InRange = Physics.OverlapSphere(this.transform.position, 5);
+        if (!Input.GetKey(KeyCode.E))
+        {
+            HasInteracted = false;
+        }
+        foreach(Collider thing in InRange)
+        {
+            if (thing.CompareTag("Interactable") && TextDisplayer.text == string.Empty)
+            {
+                if (Input.GetKeyDown(KeyCode.E) && !HasInteracted)
+                {
+                    thing.GetComponent<ObjectInteraction>().Interact();
+                    HasInteracted = true;
+                }
+                InteractPrompt.gameObject.SetActive(true);
+                break;
+            }
+            else InteractPrompt.gameObject.SetActive(false);
+        }
+
 
         if (!IsRoll)
         {
@@ -97,11 +148,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         this.transform.Rotate(Vector3.up * _lookInput * Time.deltaTime);
 
-        //jump
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-        {
-            Rigidbody.AddForce(new Vector3(0, 400, 0));
-        }
+        ////jump
+        //if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        //{
+        //    Rigidbody.AddForce(new Vector3(0, 400, 0));
+        //}
 
         //ability 1
         if (Input.GetKeyDown(KeyCode.F))
@@ -213,7 +264,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         //Scan
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if (ScanType == 2)
             {
@@ -245,23 +296,23 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         //roll
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !IsRoll)
-        {
-            Roll();
-            CurrentRollDuration = RollDuration;
-        }
-        if (CurrentRollDuration > 0)
-        {
-            CurrentRollDuration -= 1;
-        }
-        if (CurrentRollDuration == 0 && IsRoll)
-        {
-            IsRoll = false;
-            CurrentRollSpeed = 0;
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftControl) && !IsRoll)
+        //{
+        //    Roll();
+        //    CurrentRollDuration = RollDuration;
+        //}
+        //if (CurrentRollDuration > 0)
+        //{
+        //    CurrentRollDuration -= 1;
+        //}
+        //if (CurrentRollDuration == 0 && IsRoll)
+        //{
+        //    IsRoll = false;
+        //    CurrentRollSpeed = 0;
+        //}
 
         //hack
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             HackCoroutine = StartCoroutine(Hack());
         }
@@ -283,12 +334,12 @@ public class PlayerBehaviour : MonoBehaviour
             CanTicker = false;
         }
 
-        if (Input.anyKeyDown && HackCoroutine != null && !Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            StopCoroutine(HackCoroutine);
-            HackCoroutine = null;
-            Debug.Log("Stop");
-        }
+        //if (Input.anyKeyDown && HackCoroutine != null && !Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    StopCoroutine(HackCoroutine);
+        //    HackCoroutine = null;
+        //    Debug.Log("Stop");
+        //}
     }
 
     private void LateUpdate()
@@ -328,6 +379,11 @@ public class PlayerBehaviour : MonoBehaviour
                             hit.collider.GetComponent<EnemyBehaviour>().GetMeleed();
                         }
                     }
+                }
+
+                if (hit.collider.CompareTag("Destructable"))
+                {
+                    Destroy(hit.collider.gameObject);
                 }
             }
             Debug.DrawRay(transform.position, rayDirectionM * MeleeRange, Color.red, 10f);
@@ -399,10 +455,10 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Physics.Raycast(HackRay, out hit))
         {
-            if (hit.distance < 4)
+            //if (hit.distance < 10)
             {
                 yield return new WaitForSeconds(HackTimer);
-                
+                Debug.Log("Hacking");
                    GameObject hitObject = hit.collider.gameObject;
                     if (hitObject.gameObject.GetComponent<ExplodingBarrel>() != null)
                     {
@@ -410,7 +466,13 @@ public class PlayerBehaviour : MonoBehaviour
                             hitObject.gameObject.GetComponent<ExplodingBarrel>().Explode();
                         }
                     }
-                IsHacking = false;
+
+                    if (hitObject.gameObject.GetComponent<DoorLogic>() != null)
+                        {
+                    Debug.Log("door");
+                            StartCoroutine(hitObject.gameObject.GetComponent<DoorLogic>().Lockpick());
+                        }
+                    IsHacking = false;
                 
                 
                 

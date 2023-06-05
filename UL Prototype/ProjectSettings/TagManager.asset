@@ -9,6 +9,8 @@ TagManager:
   - Weakpoint
   - Decoy
   - SmokeBomb
+  - InGameUI
+  - Destructable
   layers:
   - Default
   - TransparentFX

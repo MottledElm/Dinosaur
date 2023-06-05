@@ -3,7 +3,23 @@ guid: c4f4a90cb31b7cb4691ef6ffd7b188fc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - InteractPrompt: {instanceID: 0}
+  - MeleeChargeEffect: {instanceID: 0}
+  - MeleeEffect: {instanceID: 0}
+  - HealthPic: {instanceID: 0}
+  - Health1: {instanceID: 0}
+  - Health2: {instanceID: 0}
+  - Health3: {instanceID: 0}
+  - Health4: {instanceID: 0}
+  - ScanEffect: {instanceID: 0}
+  - Ticker: {fileID: 7699626840246281847, guid: 4044deba7a9449c4da0577eab9d81514,
+      type: 3}
+  - SmokeBomb: {fileID: 2633596714431578221, guid: 06c0053a5f062154294d0b2ac367c627,
+      type: 3}
+  - SmokeScreen: {instanceID: 0}
+  - Controller: {instanceID: 0}
+  - Rigidbody: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

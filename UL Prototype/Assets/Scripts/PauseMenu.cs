@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject upgradeMenu;
-    public GameObject InGameButtons;
     public GameObject settingsMenu;
     public GameObject journalMenu;
     public GameObject Player;
@@ -34,7 +33,7 @@ public class PauseMenu : MonoBehaviour
         upgradeMenu.SetActive(false); //Start game without pause menu
         settingsMenu.SetActive(false); //Start game without settings menu
         journalMenu.SetActive(false); //Start game without journal menu
-        InGameButtons.SetActive(true); //Showgame menu
+
 
         GreenSelected = Green1.colors;
         GreenSelected.normalColor = Color.green;
@@ -71,7 +70,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         InMenu = true;
         pauseMenu.SetActive(true);
-        InGameButtons.SetActive(false);
+
         settingsMenu.SetActive(false);
         Time.timeScale = 0f;
         isPaused = true;
@@ -82,7 +81,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         InMenu = true;
         upgradeMenu.SetActive(true);
-        InGameButtons.SetActive(false);
+
         Time.timeScale = 0f;
         isPaused = true;
     }
@@ -91,7 +90,7 @@ public class PauseMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         InMenu = true;
-        InGameButtons.SetActive(false);
+
         journalMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
@@ -104,10 +103,10 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         upgradeMenu.SetActive(false);
         journalMenu.SetActive(false);
-        InGameButtons.SetActive(true);
+
         Time.timeScale = 1f;
         isPaused = false;
-        GameObject.Find("Controller").GetComponent<GameController>().UpgradeDescription = null;
+        GameObject.Find("GameController").GetComponent<GameController>().UpgradeDescription = null;
         HasUpgraded = false;
     }
 
@@ -202,7 +201,7 @@ public class PauseMenu : MonoBehaviour
     {
         upgradeMenu.SetActive(false);
         settingsMenu.SetActive(true);
-        InGameButtons.SetActive(false);
+
         pauseMenu.SetActive(false);
     }
     public void GoToMM() //Go to the main menu

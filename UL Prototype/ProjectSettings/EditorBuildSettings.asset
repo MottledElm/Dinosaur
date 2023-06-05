@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maingame.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Expo Hall 2.unity
+    guid: ae6db847f2c5c334aafcb4cb508510c5
   m_configObjects: {}

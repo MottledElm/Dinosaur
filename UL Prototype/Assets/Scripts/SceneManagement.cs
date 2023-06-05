@@ -8,13 +8,13 @@ public class SceneManagement : MonoBehaviour
     public void StartGame() //Start the game
     {
         Debug.Log("Start the game");
-        SceneManager.LoadScene("GamePlayTest");
+        SceneManager.LoadScene("Expo Hall 2");
     }
 
     public void NewGame() //Start Demo game
     {
         Debug.Log("Made new game");
-        SceneManager.LoadScene("Maingame");
+        SceneManager.LoadScene("Expo Hall 2");
     }
 
     public void GotoOM() //Go to Options Menu
