@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor.Rendering;
+using UnityEngine.UI;
 
 public class TextDisplay : MonoBehaviour
 {
@@ -14,11 +15,14 @@ public class TextDisplay : MonoBehaviour
 
     private int index;
     private Color firstWordColor = Color.red;
+    public Color[] TextColor;
+    public AudioSource[] TextVoice;
+    public Image TextBackground;
 
     void Start()
     {
         textComponent.text = string.Empty;
-        StartDialogue();
+        //StartDialogue();
     }
 
     void Update()
@@ -26,6 +30,7 @@ public class TextDisplay : MonoBehaviour
 
         if (textComponent.text == lines[index] && lines[index] != string.Empty)
         {
+            TextVoice[index].Stop();
             if (CurrentTextDuration >= TextDuration)
             {
                 if (lines[index + 1] != string.Empty)
@@ -42,6 +47,12 @@ public class TextDisplay : MonoBehaviour
             }
             else CurrentTextDuration += Time.deltaTime;
         }
+
+        if (textComponent.text != string.Empty)
+        {
+            TextBackground.gameObject.SetActive(true);
+        }
+        else TextBackground.gameObject.SetActive(false);
         
     }
     public void StartDialogue()
@@ -54,6 +65,8 @@ public class TextDisplay : MonoBehaviour
 
     IEnumerator TypeLine()
     {
+        this.textComponent.color = TextColor[index];
+        TextVoice[index].Play();
         string line = lines[index];
         string[] words = line.Split(' ');
 

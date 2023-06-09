@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorLogic : MonoBehaviour
 {
     public GameObject OtherDoor;
+    public GameObject Phila;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class DoorLogic : MonoBehaviour
         Debug.Log("Lockpick");
         yield return new WaitForSeconds(2);
         OtherDoor.SetActive(true);
+        Phila.GetComponent<NPCBehaviour>().CurrentDestination = Phila.GetComponent<NPCBehaviour>().ProjectionRoom;
         Destroy(this.gameObject);
     }
 }

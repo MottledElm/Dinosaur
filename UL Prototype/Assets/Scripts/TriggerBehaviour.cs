@@ -24,6 +24,8 @@ public class TriggerBehaviour : MonoBehaviour
     public string Message17;
     public string Message18;
     public string Message19;
+    public Color[] LineColors;
+    public AudioSource[] Voices;
 
     public TextMeshProUGUI TextDisplayer;
 
@@ -47,6 +49,8 @@ public class TriggerBehaviour : MonoBehaviour
         if (collision.CompareTag("Player") && IsTriggered == false)
         {
             IsTriggered = true;
+            TextDisplayer.GetComponent<TextDisplay>().TextColor = LineColors;
+            TextDisplayer.GetComponent<TextDisplay>().TextVoice = Voices;
             TextDisplayer.GetComponent<TextDisplay>().lines[0] = Message1;
             TextDisplayer.GetComponent<TextDisplay>().lines[1] = Message2;
             TextDisplayer.GetComponent<TextDisplay>().lines[2] = Message3;

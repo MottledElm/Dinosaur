@@ -74,15 +74,19 @@ public class PlayerBehaviour : MonoBehaviour
     private float DistanceToGround = 1f;
     public ParticleSystem SmokeScreen;
     public GameObject Controller;
+    public GameObject Phila;
 
     public Rigidbody Rigidbody;
 
     public TextMeshProUGUI TextDisplayer;
 
+    //Animation
+    public Animator Animator;
+    
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     public bool IsGrounded()
@@ -384,6 +388,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (hit.collider.CompareTag("Destructable"))
                 {
                     Destroy(hit.collider.gameObject);
+                    Phila.GetComponent<NPCBehaviour>().CurrentDestination = Phila.GetComponent<NPCBehaviour>().Stage;
                 }
             }
             Debug.DrawRay(transform.position, rayDirectionM * MeleeRange, Color.red, 10f);

@@ -25,6 +25,9 @@ public class ObjectInteraction : MonoBehaviour, IInteractable
     public string InteractionMessage17;
     public string InteractionMessage18;
     public string InteractionMessage19;
+    public Color[] LineColors;
+    public AudioSource[] Voices;
+
 
     public bool Interacted = false;
 
@@ -44,6 +47,8 @@ public class ObjectInteraction : MonoBehaviour, IInteractable
         if (Interacted == false)
         {
             Interacted = true;
+            TextDisplayer.gameObject.GetComponent<TextDisplay>().TextColor = LineColors;
+            TextDisplayer.gameObject.GetComponent<TextDisplay>().TextVoice = Voices;
             TextDisplayer.gameObject.GetComponent<TextDisplay>().lines[0] = InteractionMessage1;
             TextDisplayer.gameObject.GetComponent<TextDisplay>().lines[1] = InteractionMessage2;
             TextDisplayer.gameObject.GetComponent<TextDisplay>().lines[2] = InteractionMessage3;

@@ -16,6 +16,9 @@ public class Shooting : MonoBehaviour
     public GameObject Gun1;
     public GameObject Gun2;
 
+    public AudioSource ShootingSound;
+    public AudioSource ReloadSound;
+
     public int CAmmo;
     public int CTotalAmmo;
     public float CCooldown;
@@ -38,7 +41,7 @@ public class Shooting : MonoBehaviour
         TotalAmmo = 999,
         AmmoCap = 6,
         Cooldown = 300f,
-        Reload = 1000f,
+        Reload = 200f,
         Damage = 50,
     };
 
@@ -101,6 +104,7 @@ public class Shooting : MonoBehaviour
                     if (Guns[CurrentGun - 1].Ammo > 0)
                     {
                         _IsShooting |= Input.GetKey(KeyCode.Mouse0);
+                    
                     }
                 }
             }
@@ -129,6 +133,7 @@ public class Shooting : MonoBehaviour
             if (Guns[CurrentGun - 1].Ammo != Guns[CurrentGun - 1].AmmoCap)
             {
                 ReloadCooldown = Guns[CurrentGun - 1].Reload;
+                ReloadSound.Play();
             }
         }
 
@@ -164,7 +169,7 @@ public class Shooting : MonoBehaviour
     {
         if (_IsShooting)
         {
-
+            ShootingSound.Play();
             Vector3 spawnPos = this.transform.position + this.transform.forward;
             GameObject newBullet = Instantiate(Bullet, spawnPos, Quaternion.identity);
 

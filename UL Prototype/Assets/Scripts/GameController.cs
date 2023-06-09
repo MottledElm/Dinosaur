@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 
 public class GameController : MonoBehaviour
 {
@@ -28,6 +30,9 @@ public class GameController : MonoBehaviour
     public GameObject Mission1;
     public GameObject Mission2;
     public GameObject Mission3;
+    public GameObject Phila;
+    public GameObject Window;
+    public Image Cutscene;
     public TextMeshProUGUI TextDisplayer;
     public TextMeshProUGUI AmmoCount;
 
@@ -69,14 +74,17 @@ public class GameController : MonoBehaviour
                 TinkerTrigger.SetActive(true);
                 Mission1.SetActive(false);
                 Mission2.SetActive(true);
+                Phila.SetActive(true);
+                Phila.GetComponent<NPCBehaviour>().CurrentDestination = Phila.GetComponent<NPCBehaviour>().AfterInvestigation;
             }
         }
 
         AmmoCount.text = Camera.GetComponent<Shooting>().CAmmo + "/" + Camera.GetComponent<Shooting>().CTotalAmmo;
 
-        if (StageTrigger.GetComponent<TriggerBehaviour>().IsTriggered && TextDisplayer.text == string.Empty)
+        if (StageTrigger.GetComponent<TriggerBehaviour>().IsTriggered && TextDisplayer.text == string.Empty && CluesFound == false)
         {
             ScanTrigger.SetActive(true);
+            Phila.GetComponent<NPCBehaviour>().CurrentDestination = Phila.GetComponent<NPCBehaviour>().DuringInvestigation;
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -84,7 +92,10 @@ public class GameController : MonoBehaviour
             ScanTrigger.SetActive(false);
         }
 
-
+        if (Window.GetComponent<ObjectInteraction>().Interacted && TextDisplayer.text == string.Empty)
+        {
+            Cutscene.gameObject.SetActive(true);
+        }
 
     }
 
